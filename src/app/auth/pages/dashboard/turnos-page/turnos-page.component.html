@@ -1,0 +1,81 @@
+<div class="container">
+  <div class="header">
+    <h6>Admin</h6>
+    <img src="./assets/icon_admin.png" alt="Admin Icon">
+  </div>
+  <hr>
+  <h2>Generador de Turnos</h2>
+  <div class="form">
+    <div class="form_2">
+      <select [ngModel]="selectedComercio" (ngModelChange)="onChangeComercios($event)">
+
+        <!-- Recorremos la lista comercios-->
+        <ng-container *ngFor="let comercio of comercios">
+          <!--El valor de la opcion se establece con el ID del comercio -->
+          <option [value]="comercio.idComercio">{{comercio.nombreComercio}}</option>
+        </ng-container>
+
+
+      </select>
+      <!-- Recorremos la lista servicios-->
+      <select [ngModel]="selectedServicio" (ngModelChange)="onChangeServicios($event)">
+        <ng-container *ngFor="let servicio of servicios">
+          <option  [value]="servicio.idServicio">{{servicio.nombreServicio}}</option>
+        </ng-container>
+      </select>
+
+
+      <div class="form_5">
+
+        <label for="fechaInicio">Fecha Inicio:</label>
+
+        <input [(ngModel)] ="fechaInicio" type="date" value="" id="fechaInicio">
+
+
+        <label for="fechaFin">Fecha Fin:</label>
+
+        <input [(ngModel)] ="fechaFin" type="date" id="fechaFin">
+      </div>
+      <div class="form_6">
+        <label for="horaInicio">Hora Inicio:</label>
+        <input [(ngModel)] ="horaInicio"  type="time" value="" id="horaInicio">
+
+        <label for="horaFin">Hora Fin:</label>
+        <input [(ngModel)] ="horaFin"  type="time" id="horaFin">
+      </div>
+
+    </div>
+
+    <div class="form_4">
+      <button  id="generar" (click)="createTurnos()">Generar</button>
+    </div>
+  </div>
+
+  <div class="turnos">
+    <h2>Turnos Generados:</h2>
+
+    <table class="table table-striped" >
+      <thead>
+        <tr>
+          <th>Comercio</th>
+          <th>Servicio</th>
+          <th>Fecha de Turno</th>
+          <th>Hora de Inicio</th>
+          <th>Hora de Fin</th>
+        </tr>
+      </thead>
+
+      <tbody id="listaTurnos">
+
+        <tr *ngFor="let turno of turnos">
+          <th>{{turno.comercio}}</th>
+          <th>{{turno?.servicios}}</th>
+          <th>{{turno?.fechaTurno | date}}</th>
+          <th>{{turno?.horaInicio | date: 'HH:mm'}}</th>
+          <th>{{turno?.horaFin | date: 'HH:mm' }}</th>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
